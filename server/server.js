@@ -16,6 +16,15 @@ const { authMiddleware } = require("./utils/auth");
 //requiring typedefs and resolvers
 const {typeDefs, resolvers } = require ("./schemas");
 
+// import servers Middleware
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: authMiddleware,
+});
+
+server.applyMiddleware({ app });
+
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
