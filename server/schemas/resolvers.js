@@ -27,7 +27,25 @@ const resolvers = {
             if (!correctPassword) {
                 throw new AuthenticationError("Invaild email or password");
             }
+            const token = signToken(user);
 
+            return { token, user };
+        },
+        addUser: async (parent, args) => {
+            const user = await User.create(args);
+            const token = signToken(user);
+
+            return { token, user };
+        },
+        saveBook: async (parent, { input }, context) =>{
+            if (context.user) {
+                const updatedUser = await User.findOneAndDelete(
+                    { _id: context.user._id },
+                    { $addToSet: { savedBooks: input }},
+                    { new: true, runValidators: true }
+                );
+                return updatedUser;
+            }
         }
     }
 }
