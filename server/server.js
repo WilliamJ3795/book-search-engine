@@ -7,10 +7,15 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // import apollo server
-const {ApolloServer} = require("apollo-server-express");
+const { ApolloServer } = require("apollo-server-express");
 
 // importing authMiddleware
-const { authMiddleware } = require("./utils/auth")
+const { authMiddleware } = require("./utils/auth");
+
+
+//requiring typedefs and resolvers
+const {typeDefs, resolvers } = require ("./schemas");
+
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
