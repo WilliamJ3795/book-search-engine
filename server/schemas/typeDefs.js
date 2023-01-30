@@ -46,3 +46,5 @@ type Book {
   }
 
 `;
+
+module.exports = typeDefs;
